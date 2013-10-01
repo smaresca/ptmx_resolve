@@ -5,9 +5,10 @@ ptmx_resolve
 
   Usage: ptmx_resolve $PID [<optional> target file descriptor ID]
 
-  Elevated privileges is required.
+  Elevated privileges are required.
 
-Background:
+Background
+-------------
 
   Pseudoterminals in use by $PID are difficult to resolve from a perspective outside of the running program.
   Within the actual process, these ptys are referenced only by file descriptors.  Such file descriptors
@@ -16,7 +17,8 @@ Background:
   open("/dev/ptmx", O_RDWR | O_NOCTTY). Within a running program, psuedoterminal file descriptors can be
   passed to ptsname(3) to obtain the corresponding device path, e.g. /dev/pts/12.
 
-Motivation:
+Motivation
+-------------
 
   Occasionally, one desires to connect to a dynamic pseudoterminal bound by a program. For example, it is often
   useful for advanced management of virtual machines to connect to the qemu monitor via a serial emulator such
@@ -28,7 +30,8 @@ Motivation:
   
   This rather godawful little utility exists to solve this problem.
   
-How it works:
+How it works
+-------------
 
   This utility :
     1) finds file descriptors of a process that are pseudotermianl candidates (i.e., they
@@ -39,7 +42,8 @@ How it works:
       by ptsname()
     4) restores process state and resumes the program
     
-Final comments:
+Final comments
+--------------
 
   Please forgive me for this abomination. It should not be used in any production context, ever...most especially
   because of process-thread equivalence and the fairly braindead nature of ptrace().
@@ -48,7 +52,8 @@ Final comments:
   
   That said, if someone finds a better way, please for the love of god let me know what it is.
   
-  
+***
+
 Copyright 2013
 Author Steve Maresca <steve@zentific.com>
 
